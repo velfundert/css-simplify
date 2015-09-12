@@ -1,0 +1,21 @@
+{
+  "name": "css-simplify",
+  "version": "0.0.1",
+  "description": "A utility script that tries to simplify a css by using cosine similarity",
+  "main": "css-simplify.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "http://github.com/velfundert/css-simplify.git"
+  },
+  "keywords": [
+    "css"
+  ],
+  "author": "Christian Strandenæs",
+  "license": "GPL-3.0",
+  "devDependencies": {
+    "css": "^2.2.1"
+  }
+}
