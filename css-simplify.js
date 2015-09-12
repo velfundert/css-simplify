@@ -11,7 +11,6 @@ var cumulativeComparisonVectorFactory = function() {
 	return function (rule) {
 		var vector = Array.apply(null, Array(dictlength)).map(Number.prototype.valueOf,0);
 
-		console.log(dict.length);
 		_.each(rule.selectors, function(element){
 
 
