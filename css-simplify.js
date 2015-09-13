@@ -6,7 +6,7 @@ var css = require('css'),
 var cumulativeComparisonVectorFactoryFactory = function() {
 
 	var dict = {},
-			dictlength = 0;
+		dictlength = 0;
 	
 	return function(rule) {
 		var vector = Array.apply(null, Array(dictlength)).map(Number.prototype.valueOf, 0);
@@ -20,7 +20,7 @@ var cumulativeComparisonVectorFactoryFactory = function() {
 			}
 		});
 
-		return vector;
+		return { 'vector': vector, 'rule': rule };
 	};
 };
 
@@ -42,7 +42,7 @@ var rankVectors = function (vectors) {
 	for (var j = 0; j < length; ++j ) {
 		ranks[j] = [];
 
-		for (var i = 0; i < length; ++i) {
+		for (var i = 0; i <= j; ++i) {
 			if ( i === j ) {
 				ranks[j][i] = 0;
 				continue;
@@ -56,16 +56,20 @@ var rankVectors = function (vectors) {
 
 
 var vecfac = cumulativeComparisonVectorFactoryFactory(),
+	processedRules = null,
 	vectors = null;
 
 // lets go:
 fs.readFile('lol.css', 'utf8', function (err, res) {
 	if (res !== null) {
-		vectors = _.map(_.filter(css.parse(res).stylesheet.rules, function(x) { return x.type === 'rule';}), vecfac);
+		processedRules = _.map(_.filter(css.parse(res).stylesheet.rules, function(x) { return x.type === 'rule';}), vecfac);
 	} else {
 		console.log('ERROR');
 		console.log(err);
 	}
+
+	vectors = _.map(processedRules, function(rule) { return rule.vector });
+
 	if (vectors === null) {
 		console.log('vectors is null');
 		process.exit();
